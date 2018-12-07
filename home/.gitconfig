@@ -1,0 +1,12 @@
+[user]
+	email = cheesy.mac.dott@gmail.com
+	name = Spencer Todd
+[merge]
+	ff = false
+[core]
+	pager = less -+F -c
+[alias]
+	graph = log --graph --oneline --abbrev=1
+	map-diff = "!for f in $(git ls-files -m); do git diff $f; done"
+[grep]
+	linenumber = true
