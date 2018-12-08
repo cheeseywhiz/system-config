@@ -15,7 +15,7 @@ def shell(cmd, sudo=False, **kwargs):
 
 
 def git_ls_files():
-    return shell('git ls-files  **/').stdout.decode().splitlines()
+    return filter(lambda path: not path.startswith('var'), shell('git ls-files  **/').stdout.decode().splitlines())
 
 
 def get_destination(path_in_repo):
