@@ -10,3 +10,5 @@
 	map-diff = "!for f in $(git ls-files -m); do git diff $f; done"
 [grep]
 	linenumber = true
+[credential]
+	helper = cache --timeout=28800
