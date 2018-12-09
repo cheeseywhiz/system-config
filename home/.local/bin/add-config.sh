@@ -1,7 +1,7 @@
 #!/bin/env sh
 # [sudo -E] add-config.sh file
 
-REPO="${HOME}/config-root"
+REPO="${HOME}/gentoo-vm"
 CONFIG_FILE=$(realpath "$1")
 PATH_IN_REPO=$(realpath --relative-base="$HOME" "$1")
 PATH_IN_REPO=$(python -c "

@@ -29,4 +29,5 @@
 #/dev/cdrom		/mnt/cdrom	auto		noauto,ro	0 0
 
 /dev/sda2 /boot ext4 defaults,noatime 0 2
-/dev/sda3 /     etx4 defaults,noatime 0 2
+/dev/sda3 none  swap sw               0 0
+/dev/sda4 /     etx4 noatime 0 2

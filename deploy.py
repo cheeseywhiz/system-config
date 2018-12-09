@@ -6,16 +6,24 @@ import subprocess
 HOME = os.getenv('HOME')
 
 
-def shell(cmd, sudo=False, **kwargs):
+def shell(cmd, sudo=False, do_print=True, **kwargs):
     if sudo:
         cmd = f'sudo {cmd}'
 
     print(cmd)
-    return subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs)
+    proc = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs)
+
+    if do_print and proc.stdout:
+        print(proc.stdout.decode())
+
+    if do_print and proc.stderr:
+        print(proc.stderr.decode())
+
+    return proc
 
 
 def git_ls_files():
-    return filter(lambda path: not path.startswith('var'), shell('git ls-files  **/').stdout.decode().splitlines())
+    return filter(lambda path: not path.startswith('var'), shell('git ls-files  **/', do_print=False).stdout.decode().splitlines())
 
 
 def get_destination(path_in_repo):
@@ -49,8 +57,8 @@ def stat_existing_parent(path):
 
 def deploy(path_in_repo):
     realpath = os.path.realpath(path_in_repo)
-    parent = os.path.dirname(realpath)
     destination = get_destination(path_in_repo)
+    parent = os.path.dirname(destination)
     parent_stat = stat_existing_parent(destination)
     sudo = not parent_stat.st_uid
 

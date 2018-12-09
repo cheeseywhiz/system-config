@@ -1,5 +1,5 @@
 #!/bin/sh
-REPO="${HOME}/config-root"
+REPO="${HOME}/gentoo-vm"
 WORLD=/var/lib/portage/world
 DEST="${REPO}${WORLD}"
 
