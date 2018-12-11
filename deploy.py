@@ -62,6 +62,9 @@ def deploy(path_in_repo):
     parent_stat = stat_existing_parent(destination)
     sudo = not parent_stat.st_uid
 
+    if os.path.isdir(destination) and os.path.islink(destination):
+        return
+
     if not os.path.exists(parent):
         shell(f'mkdir -p {parent}', sudo=sudo)
 

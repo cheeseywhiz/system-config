@@ -4,7 +4,7 @@
 [merge]
 	ff = false
 [core]
-	pager = less -+F -c
+	pager = vim -R -c :AnsiEsc -
 [alias]
 	graph = log --graph --oneline --abbrev=1
 	map-diff = "!for f in $(git ls-files -m); do git diff $f; done"
