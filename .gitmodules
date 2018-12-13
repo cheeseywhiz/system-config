@@ -4,3 +4,6 @@
 [submodule "home/.vim/bundle/vim-gitgutter"]
 	path = home/.vim/bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "home/.vim/bundle/tabline.vim"]
+	path = home/.vim/bundle/tabline.vim
+	url = git://github.com/mkitt/tabline.vim.git
