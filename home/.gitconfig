@@ -12,3 +12,5 @@
 	linenumber = true
 [credential]
 	helper = cache --timeout=28800
+[commit]
+	verbose = true

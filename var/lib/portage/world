@@ -6,6 +6,7 @@ app-editors/vim
 app-misc/neofetch
 app-misc/ranger
 app-misc/tmux
+dev-python/flake8
 dev-vcs/git
 net-misc/dhcpcd
 net-misc/netifrc

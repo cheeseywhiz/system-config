@@ -1,5 +1,4 @@
 #!/bin/env python3
-import collections
 import os
 import subprocess
 
@@ -11,7 +10,10 @@ def shell(cmd, sudo=False, do_print=True, **kwargs):
         cmd = f'sudo {cmd}'
 
     print(cmd)
-    proc = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs)
+    proc = subprocess.run(
+        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        **kwargs
+    )
 
     if do_print and proc.stdout:
         print(proc.stdout.decode())
@@ -23,7 +25,11 @@ def shell(cmd, sudo=False, do_print=True, **kwargs):
 
 
 def git_ls_files():
-    return filter(lambda path: not path.startswith('var'), shell('git ls-files  **/', do_print=False).stdout.decode().splitlines())
+    return filter(
+        lambda path: not path.startswith('var'),
+        shell('git ls-files  **/',
+              do_print=False).stdout.decode().splitlines(),
+    )
 
 
 def get_destination(path_in_repo):

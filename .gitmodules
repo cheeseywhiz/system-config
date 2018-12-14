@@ -7,3 +7,6 @@
 [submodule "home/.vim/bundle/tabline.vim"]
 	path = home/.vim/bundle/tabline.vim
 	url = git://github.com/mkitt/tabline.vim.git
+[submodule "home/.vim/bundle/ale"]
+	path = home/.vim/bundle/ale
+	url = https://github.com/w0rp/ale.git
