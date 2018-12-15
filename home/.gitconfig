@@ -14,3 +14,7 @@
 	helper = cache --timeout=28800
 [commit]
 	verbose = true
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false

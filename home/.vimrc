@@ -18,15 +18,7 @@ nnoremap <leader>b :ls<CR>:b<space>
 
 " search and delete trailing whitespace
 nnoremap <leader>w /\s\+$<CR>
-nnoremap <leader>dw :s/\s\+$//e<CR>
+nnoremap <leader>dw :%s/\s\+$//e<CR>
 
-" plugins
-
-" ale
-" next and previous lint error
-nnoremap <leader>n :ALENextWrap<CR>
-nnoremap <leader>N :ALEPreviousWrap<CR>
-
-" vim-signify
-let g:signify_vcs_list = ['git']
-highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
+" ZA = :qa! like ZZ = :wq and ZQ = :q!
+nnoremap ZA :qa!<CR>
