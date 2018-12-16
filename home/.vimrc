@@ -36,3 +36,6 @@ nnoremap <leader>dw :%s/\s\+$//e<CR>
 
 " ZA = :qa! like ZZ = :wq and ZQ = :q!
 nnoremap ZA :qa!<CR>
+
+" Backup for :CtrlPBuffer
+nnoremap <leader>b :ls<CR>:b<space>
