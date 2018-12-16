@@ -1,4 +1,3 @@
 *.swp
 *.swo
 __pycache__
-home/.vim/bundle

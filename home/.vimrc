@@ -4,6 +4,9 @@ Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'w0rp/ale'
 Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-signify'
+" ./deploy.py && cd ~/.vim/bundle/YouCompleteMe &&
+" ./install.py --clang-completer
+Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
