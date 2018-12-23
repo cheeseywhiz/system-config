@@ -1,22 +1,29 @@
-#!/bin/env sh
+#!/usr/bin/env sh
 # [sudo -E] add-config.sh file
 
+statf () {
+	if [ $(uname) == "OpenBSD" ]; then
+		stat -f $@
+	else
+		stat -c $@
+	fi
+}
+
 REPO="${HOME}/gentoo-vm"
-CONFIG_FILE=$(realpath "$1")
-PATH_IN_REPO=$(realpath --relative-base="$HOME" "$1")
+CONFIG_FILE=$(readlink -f "$1")
 PATH_IN_REPO=$(python -c "
 config_file = \"${CONFIG_FILE}\"
 home = \"${HOME}\"
 
 if config_file.startswith(home):
-	config_file = '/home' + config_file[len(home):]
+	config_file = 'home' + config_file[len(home):]
 
 print(config_file)
 ")
-DEST="${REPO}${PATH_IN_REPO}"
+DEST="${REPO}/${PATH_IN_REPO}"
 
 mkdir -p $(dirname "$DEST")
 mv "$CONFIG_FILE" "$DEST"
 ln -s "$DEST" "$CONFIG_FILE"
-chown -R "$(stat -c "%U:%G" "$REPO")" "${REPO}"
+chown -R "$(statf "%u:%g" "$REPO")" "$REPO"
 (cd "$REPO" && git add -N "$DEST")

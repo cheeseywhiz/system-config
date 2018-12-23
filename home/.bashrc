@@ -13,16 +13,30 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
+relative-to () {
+	# relative-to dir path
+	# like realpath --relative-to=dir path
+	DIR=$(readlink -f "$1")
+	PATH=$(readlink -f "$2")
+	echo "${PATH#"$DIR/"}"
+}
+
 git-pwd () {
 	if git rev-parse >& /dev/null; then
-		realpath --relative-to="$(git rev-parse --git-dir)/../.." ./
+		relative-to "$(git rev-parse --git-dir)/../.." ./
 	else
 		dirs +0
 	fi
 }
 
 # Put your fun stuff here.
-alias ls="ls -h --color=always"
+
+if [ $(uname -s) == "OpenBSD" ]; then
+	alias ls="ls -hF"
+else
+	alias ls="ls -h --color=always"
+fi
+
 alias ll="ls -l"
 alias la="ll -a"
 alias reset="tput reset"
