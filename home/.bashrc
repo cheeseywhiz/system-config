@@ -45,6 +45,7 @@ alias nano="nano -w"
 source ~/.git-prompt.sh
 PS1='$(printf "%.*s" $? $?)\[\e[01;32m\]\u@\h: \[\e[00m\]$(date "+%X"): \[\e[01;34m\]$(git-pwd): \[\e[00m\]$(__git_ps1 "%s:")\n\$ \[\e[00m\]'
 export EDITOR=vim
+export MANPAGER=less
 export PATH="${PATH}:${HOME}/.local/bin"
 
 git-new () {
