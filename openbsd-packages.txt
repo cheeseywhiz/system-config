@@ -1,0 +1,10 @@
+cmake--
+flake8--
+git--
+htop--
+neofetch--
+py3-jedi--
+quirks--
+ranger--
+sudo--
+vim--no_x11-python3
