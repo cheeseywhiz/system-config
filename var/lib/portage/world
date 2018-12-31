@@ -18,4 +18,3 @@ sys-boot/grub:2
 sys-kernel/genkernel
 sys-kernel/gentoo-sources
 sys-kernel/linux-firmware
-www-client/lynx

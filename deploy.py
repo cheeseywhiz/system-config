@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
 import os
+import shutil
 import subprocess
 
 HOME = os.getenv('HOME')
 
 
+def make_sudo(cmd):
+    if shutil.which('sudo'):
+        return f'sudo {cmd}'
+    else:
+        return f'su -c "{cmd}"'
+
+
 def shell(cmd, sudo=False, do_print=True, **kwargs):
     if sudo:
-        cmd = f'sudo {cmd}'
+        cmd = make_sudo(cmd)
 
     print(cmd)
     proc = subprocess.run(
@@ -16,21 +24,18 @@ def shell(cmd, sudo=False, do_print=True, **kwargs):
     )
 
     if do_print and proc.stdout:
-        print(proc.stdout.decode())
+        print(proc.stdout.decode(), end='')
 
     if do_print and proc.stderr:
-        print(proc.stderr.decode())
+        print(proc.stderr.decode(), end='')
 
     return proc
 
 
-def git_ls_files():
-    return filter(
-        lambda path: not path.startswith('var'),
-        shell('git ls-files  **/',
-              do_print=False).stdout.decode().splitlines(),
-    )
-
+def list_files():
+    return shell('find ./* -mindepth 1 -type f -not -path "./var/*"'
+                 ' | sed "s/^\\.\\///"',
+                 do_print=False).stdout.decode().splitlines()
 
 def get_destination(path_in_repo):
     destination = f'/{path_in_repo}'
@@ -74,11 +79,11 @@ def deploy(path_in_repo):
     if not os.path.exists(parent):
         shell(f'mkdir -p {parent}', sudo=sudo)
 
-    shell(f'ln -sf {realpath} {destination}', sudo=sudo)
+    shell(f'ln -svf {realpath} {destination}', sudo=sudo)
 
 
 def main():
-    for path_in_repo in git_ls_files():
+    for path_in_repo in list_files():
         deploy(path_in_repo)
 
 
