@@ -1,0 +1,9 @@
+[Unit]
+Description=SSH Key Agent
+
+[Service]
+Type=simple
+ExecStart=ssh-agent -D -a %t/ssh-agent.sock
+
+[Install]
+WantedBy=default.target

@@ -47,6 +47,7 @@ PS1='$(printf "%.*s" $? $?)\[\e[01;32m\]\u@\h: \[\e[00m\]$(date "+%X"): \[\e[01;
 export EDITOR=vim
 export MANPAGER=less
 export PATH="${PATH}:${HOME}/.local/bin"
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.sock
 
 git-new () {
 	FILE=$1
