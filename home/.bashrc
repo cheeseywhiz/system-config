@@ -34,7 +34,7 @@ git-pwd () {
 if [ $(uname -s) == "OpenBSD" ]; then
 	alias ls="ls -hF"
 else
-	alias ls="ls -h --color=always"
+	alias ls="ls -h --color=auto"
 fi
 
 alias ll="ls -l"
