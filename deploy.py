@@ -33,9 +33,12 @@ def shell(cmd, sudo=False, do_print=True, **kwargs):
 
 
 def list_files():
-    return shell('find ./* -mindepth 1 -type f -not -path "./var/*"'
+    return shell('find ./* -mindepth 1 -type f '
+                 '! -path "./var/*" '
+                 '! -path "./__pycache__/*"'
                  ' | sed "s/^\\.\\///"',
                  do_print=False).stdout.decode().splitlines()
+
 
 def get_destination(path_in_repo):
     destination = f'/{path_in_repo}'

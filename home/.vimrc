@@ -15,6 +15,7 @@ set relativenumber
 set showcmd
 set splitright
 set splitbelow
+set hlsearch
 set encoding=utf-8
 set laststatus=2
 set statusline=%f%(\ [%Y%M]%)%=%-14.(%l,%c%V%)\ %P
