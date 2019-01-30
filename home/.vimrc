@@ -6,7 +6,9 @@ Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-signify'
 " ./deploy.py && cd ~/.vim/bundle/YouCompleteMe &&
 " ./install.py --clang-completer
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 
 call plug#end()
 
