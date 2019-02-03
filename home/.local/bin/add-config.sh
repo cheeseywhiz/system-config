@@ -9,7 +9,7 @@ statf () {
 	fi
 }
 
-REPO="${HOME}/gentoo-vm"
+REPO="${HOME}/system-config"
 CONFIG_FILE=$(readlink -f "$1")
 PATH_IN_REPO=$(python -c "
 config_file = \"${CONFIG_FILE}\"

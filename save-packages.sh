@@ -6,7 +6,7 @@ command-exists() {
 
 main() {
 	if command-exists emerge; then  # Gentoo
-		REPO="${HOME}/gentoo-vm"
+		REPO="${HOME}/system-config"
 		WORLD=/var/lib/portage/world
 		DEST="${REPO}${WORLD}"
 		mkdir -p $(dirname "$DEST")
