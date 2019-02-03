@@ -21,6 +21,8 @@ set hlsearch
 set encoding=utf-8
 set laststatus=2
 set statusline=%f%(\ [%Y%M]%)%=%-14.(%l,%c%V%)\ %P
+set tabstop=4
+set shiftwidth=4
 
 " toggle relativenumber
 nnoremap <leader>r :set relativenumber!<CR>
