@@ -18,6 +18,9 @@ home = \"${HOME}\"
 if config_file.startswith(home):
 	config_file = 'home' + config_file[len(home):]
 
+if config_file.startswith('/'):
+	config_file = config_file[1:]
+
 print(config_file)
 ")
 DEST="${REPO}/${PATH_IN_REPO}"
