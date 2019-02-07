@@ -48,6 +48,7 @@ export EDITOR=vim
 export MANPAGER=less
 export PATH="${PATH}:${HOME}/.local/bin"
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.sock
+export SUDO_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
 
 git-new () {
 	FILE=$1
