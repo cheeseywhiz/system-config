@@ -1,8 +1,6 @@
 [user]
 	email = cheesy.mac.dott@gmail.com
 	name = Spencer Todd
-[merge]
-	ff = false
 [core]
 	pager = vim -R -c :AnsiEsc -
 [alias]
