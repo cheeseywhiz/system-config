@@ -41,6 +41,8 @@ alias ll="ls -l"
 alias la="ll -a"
 alias reset="tput reset"
 alias nano="nano -w"
+alias hibernate="systemctl hibernate && exit"
+alias suspend="systemctl suspend && exit"
 
 source ~/.git-prompt.sh
 PS1='$(printf "%.*s" $? $?)\[\e[01;32m\]\u@\h: \[\e[00m\]$(date "+%X"): \[\e[01;34m\]$(git-pwd): \[\e[00m\]$(__git_ps1 "%s:")\n\$ \[\e[00m\]'
@@ -49,6 +51,7 @@ export MANPAGER=less
 export PATH="${PATH}:${HOME}/.local/bin"
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.sock
 export SUDO_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
+export LFS=/mnt/lfs
 
 git-new () {
 	FILE=$1
