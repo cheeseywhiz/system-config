@@ -43,6 +43,7 @@ alias reset="tput reset"
 alias nano="nano -w"
 alias hibernate="systemctl hibernate && exit"
 alias suspend="systemctl suspend && exit"
+alias ignore="systemd-inhibit --what=handle-lid-switch sleep infinity"
 
 source ~/.git-prompt.sh
 PS1='$(printf "%.*s" $? $?)\[\e[01;32m\]\u@\h: \[\e[00m\]$(date "+%X"): \[\e[01;34m\]$(git-pwd): \[\e[00m\]$(__git_ps1 "%s:")\n\$ \[\e[00m\]'
