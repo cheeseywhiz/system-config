@@ -56,6 +56,7 @@ export PATH="${PATH}:${HOME}/.local/bin"
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.sock
 export SUDO_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
 export LFS=/mnt/lfs
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 git-new () {
 	FILE=$1
