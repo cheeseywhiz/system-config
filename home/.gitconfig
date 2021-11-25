@@ -2,17 +2,26 @@
 	email = cheesy.mac.dott@gmail.com
 	name = Spencer Todd
 [core]
-	pager = vim -R -c :AnsiEsc -
+	pager = vim -R -c :AnsiEsc -c \":set nowrap\" -
 [alias]
 	graph = log --graph --oneline --abbrev=1
 	map-diff = "!for f in $(git ls-files -m); do git diff $f; done"
+	d = diff
+	s = status
+	a = add
+	c = commit
+	g = graph
+	l = log
+	dt = difftool
 [grep]
 	linenumber = true
 [credential]
-	helper = cache --timeout=28800
+	helper = cache --timeout=3600
 [commit]
 	verbose = true
 [diff]
 	tool = vimdiff
 [difftool]
 	prompt = false
+[pull]
+	rebase = true

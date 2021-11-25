@@ -9,9 +9,12 @@ Plug 'mhinz/vim-signify'
 Plug 'Valloric/YouCompleteMe'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-"Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 
 call plug#end()
+
+" disable you complete me
+let g:loaded_youcompleteme = 1
 
 set number
 set relativenumber
@@ -27,9 +30,20 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smarttab
+set foldmethod=syntax
+set foldcolumn=1
+set foldlevelstart=99
+set fillchars=fold:\ 
+highlight! link FoldColumn Comment
+highlight! link Folded Comment
+highlight! link ColorColumn VertSplit
 
 " toggle relativenumber
 nnoremap <leader>r :set relativenumber!<CR>
+" insert -> normal mode
+" :up - :w only if buffer has updated
+inoremap kj <ESC>:up<CR>
+"inoremap kj <ESC>
 
 " split navigation
 nnoremap <C-h> <C-w><C-h>
@@ -37,12 +51,37 @@ nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 
+" split change width
+nnoremap <leader><lt> <C-w><lt>
+nnoremap <leader>> <C-w>>
+
 " search and delete trailing whitespace
 nnoremap <leader>w /\s\+$<CR>
 nnoremap <leader>dw :%s/\s\+$//e<CR>
+
+" word wrap toggle
+nnoremap <leader>W :set wrap!<CR>
 
 " ZA = :qa! like ZZ = :wq and ZQ = :q!
 nnoremap ZA :qa!<CR>
 
 " Backup for :CtrlPBuffer
 nnoremap <leader>b :ls<CR>:b<space>
+
+" color column to 81 and window width to fit
+" (for 80 width lines)
+nnoremap <leader>c :set colorcolumn=81<CR>88<C-W>\|
+" for js (100 width lines)
+nnoremap <leader>2c :set colorcolumn=101<CR>108<C-W>\|
+" color column to 80 and window width to fit
+" (for python: 79 width lines)
+nnoremap <leader>C :set colorcolumn=80<CR>87<C-W>\|
+
+" Make a new scratch buffer
+nnoremap <leader>s :enew<CR>:setlocal buftype=nofile bufhidden=hide noswapfile<CR>
+
+" new tab
+nnoremap <leader>tn :tabnew<CR>
+
+let g:asmsyntax = 'nasm'
+let g:ale_nasm_nasm_options = '-f elf64'

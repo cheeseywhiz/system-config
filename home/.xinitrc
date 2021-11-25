@@ -32,8 +32,19 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+# use mouse when key is pressed, for gaming
+fix_gaming () {
+    if xinput list-props 12 | grep $1 | grep "Disable While Typing Enabled" >& /dev/null; then
+        xinput set-prop 12 $1 0
+    else
+        return 1
+    fi
+}
+
+fix_gaming 314 || fix_gaming 322
+
 ~/.fehbg &
 nm-applet &
-pulseeffects --gapplication-service &
+#pulseeffects --gapplication-service &
 $INIT &
 exec ${WM:-dwm}
