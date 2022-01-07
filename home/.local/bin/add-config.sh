@@ -1,17 +1,32 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 # [sudo -E] add-config.sh file
 
-statf () {
-	if [ $(uname) == "OpenBSD" ]; then
-		stat -f $@
-	else
-		stat -c $@
-	fi
+REPO="${HOME}/system-config"
+
+repo-owner () {
+    case $(uname) in
+        Darwin)
+            stat -f "%Su:%Sg" "$REPO"
+            ;;
+        OpenBSD)
+            stat -f "%u:%g" "$REPO"
+            ;;
+        Linux)
+            stat -c "%U:%G" "$REPO"
+            ;;
+    esac
 }
 
-REPO="${HOME}/system-config"
-CONFIG_FILE=$(readlink -f "$1")
-PATH_IN_REPO=$(python -c "
+CONFIG_FILE="$1"
+
+# if already added then stop
+if [[ -L "$CONFIG_FILE" ]]; then
+    exit
+fi
+
+chown -Rv "$(repo-owner)" "$CONFIG_FILE"
+
+PATH_IN_REPO="$(python -c "
 config_file = \"${CONFIG_FILE}\"
 home = \"${HOME}\"
 
@@ -22,11 +37,10 @@ if config_file.startswith('/'):
 	config_file = config_file[1:]
 
 print(config_file)
-")
+")"
 DEST="${REPO}/${PATH_IN_REPO}"
 
-mkdir -p $(dirname "$DEST")
-mv "$CONFIG_FILE" "$DEST"
-ln -s "$DEST" "$CONFIG_FILE"
-chown -R "$(statf "%u:%g" "$REPO")" "$REPO"
-(cd "$REPO" && git add -N "$DEST")
+mkdir -pv $(dirname "$DEST")
+mv -v "$CONFIG_FILE" "$DEST"
+ln -sv "$DEST" "$CONFIG_FILE"
+(cd "$REPO" && git add -Nv "$DEST")

@@ -2,6 +2,7 @@
 import os
 import shutil
 import subprocess
+import sys
 
 HOME = os.getenv('HOME')
 
@@ -32,11 +33,13 @@ def shell(cmd, sudo=False, do_print=True, **kwargs):
     return proc
 
 
-def list_files():
-    return shell('find ./* -mindepth 1 -type f '
-                 '! -path "./var/*" '
-                 '! -path "./__pycache__/*"'
-                 ' | sed "s/^\\.\\///"',
+def list_files(path='./*'):
+    if os.path.isfile(path):
+        return [path]
+    return shell(f'find {path} -mindepth 1 -type f '
+                  '! -path "./var/*" '
+                  '! -path "./__pycache__/*"'
+                  ' | sed "s/^\\.\\///"',
                  do_print=False).stdout.decode().splitlines()
 
 
@@ -85,8 +88,18 @@ def deploy(path_in_repo):
     shell(f'ln -svf {realpath} {destination}', sudo=sudo)
 
 
+def flatten(it):
+    for item in it:
+        yield from item
+
+
 def main():
-    for path_in_repo in list_files():
+    if len(sys.argv) > 1:
+        files = list(flatten(map(list_files, sys.argv[1:])))
+    else:
+        files = list_files()
+
+    for path_in_repo in files:
         deploy(path_in_repo)
 
 

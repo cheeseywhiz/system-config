@@ -6,7 +6,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-signify'
 " ./deploy.py && cd ~/.vim/bundle/YouCompleteMe &&
 " ./install.py --clang-completer
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'Yggdroot/indentLine'
@@ -37,6 +37,11 @@ set fillchars=fold:\
 highlight! link FoldColumn Comment
 highlight! link Folded Comment
 highlight! link ColorColumn VertSplit
+
+command Q q
+command W w
+command Wq wq
+command WQ wq
 
 " toggle relativenumber
 nnoremap <leader>r :set relativenumber!<CR>

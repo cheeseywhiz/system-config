@@ -1,26 +1,9 @@
-# /etc/skel/.bashrc
-#
-# This file is sourced by all *interactive* bash shells on startup,
-# including some apparently interactive shells such as scp and rcp
-# that can't tolerate any output.  So make sure this doesn't display
-# anything or bad things will happen !
-
-# Test for an interactive shell.  There is no need to set anything
-# past this point for scp and rcp, and it's important to refrain from
-# outputting anything in those cases.
-if [[ $- != *i* ]] ; then
-	# Shell is non-interactive.  Be done now!
-	return
-fi
-
-source /usr/share/nvm/init-nvm.sh
-
 relative-to () {
 	# relative-to dir path
 	# like realpath --relative-to=dir path
-	DIR=$(readlink -f "$1")
-	PATH=$(readlink -f "$2")
-	echo "${PATH#"$DIR/"}"
+	DIR=$(realpath "$1")
+	PATH_=$(realpath "$2")
+	echo "${PATH_#"$DIR/"}"
 }
 
 git-pwd () {
@@ -38,85 +21,72 @@ git-bump () {
     git checkout "$MASTER" && git merge --ff "$DEV" && git push && git checkout "$DEV"
 }
 
-alias mon1='tmux new-session -s mon'
-
-mon2 () {
-    # htop
-    tmux send 'sudo LANG=C htop' 'C-j'
-
-    # battery
-    tmux split-window -l "50%"
-    tmux send 'watch acpi -bit' 'C-j'
-
-    # terminal
-    tmux split-window -l "50%"
-
-    # bluetooth
-    tmux split-window -h -t 1
-    tmux send 'bluetoothctl' 'C-j' 'C-l'
-
-    # select htop
-    tmux select-pane -t 0
-}
-
-t-sp () {
-    if [[ $(tput lines) -eq 66 ]]; then
-        tmux split-window -l "25%"
-    else
-        tmux split-window
-    fi
-}
-
-t-vs () {
-    if [[ $(tput cols) -eq 265 ]]; then
-        tmux split-window -h -l "33%"
-    else
-        tmux split-window -h
-    fi
-}
-
-enable-core-dumps () {
-    ulimit -c unlimited
-    echo core | sudo tee /proc/sys/kernel/core_pattern
-}
-
-# Put your fun stuff here.
-
-if [ $(uname -s) == "OpenBSD" ]; then
-	alias ls="ls -hF"
-else
-	alias ls="ls -h --color=auto"
-fi
-
-alias ll="ls -l"
-alias la="ll -a"
-alias Less="less -RSFX"
-alias reset="tput reset"
-alias nano="nano -w"
-alias bell="echo -ne \"\x07\""
-alias hibernate="systemctl hibernate && exit"
-alias suspend="systemctl suspend && exit"
-alias ignore="systemd-inhibit --what=handle-lid-switch sleep infinity"
-alias ssh-umich="ssh -X -L 5951:localhost:5951 umich"
-
-source ~/.git-prompt.sh
-PS1='$(printf "%.*s" $? $?)\[\e[01;32m\]\u@\h: \[\e[00m\]$(date "+%X"): \[\e[01;34m\]$(git-pwd): \[\e[00m\]$(__git_ps1 "%s:")\n\$ \[\e[00m\]'
-export EDITOR=vim
-export MANPAGER=less
-export PAGER="less -RSFX"
-export PATH="$PATH:$HOME/.rvm/bin"
-export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-export PATH="$PATH:$GEM_HOME/bin"
-export PATH="$PATH:$HOME/.local/bin"
-export MANPATH="$MANPATH:$HOME/.local/share/man"
-export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.sock
-export SUDO_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
-export LFS=/mnt/lfs
-export _JAVA_AWT_WM_NONREPARENTING=1
-
 git-new () {
 	FILE=$1
 	touch "$FILE"
 	git add -N "$FILE"
 	$EDITOR "$FILE"
 }
+
+source ~/.git-prompt.sh
+PS1='$(printf "%.*s" $? $?)\[\e[01;32m\]\u@\h: \[\e[00m\]$(date "+%r"): \[\e[01;34m\]$(git-pwd): \[\e[00m\]$(__git_ps1 "%s:")\n\$ \[\e[00m\]'
+export EDITOR=vim
+export PAGER=less
+export MANPAGER=less
+
+if [[ $(uname) == Darwin ]]; then
+    export LESS="-RSF"
+else
+    export LESS="-RSFX"
+fi
+
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias ls="ls -h --color=auto"
+alias ll="ls -l"
+alias la="ll -a"
+alias reset="tput reset"
+alias bell="echo -ne \"\x07\""
+alias ssh-umich="ssh -X -L 5951:localhost:5951 umich"
+alias t-sp="tmux split-window -l \"25%\""
+alias t-vs="tmux split-window -h -l \"33%\""
+
+if [[ $(uname) == Darwin ]]; then
+    alias code="open -a \"Visual Studio Code\""
+fi
+
+## set PATH
+export PATH="$HOME/.local/bin-override:$PATH"
+[[ -s "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+if [[ -d "$XDG_CONFIG_HOME/nvm" ]]; then
+    export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+    source "$NVM_DIR/nvm.sh"  # This loads nvm
+    source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
+if [[ $(uname) == Darwin ]]; then
+    case $(uname -m) in
+        x86_64)
+            [[ -s /usr/local/bin/brew ]] && eval "$(/usr/local/bin/brew shellenv)"
+            # brew --prefix openjdk
+            [[ -d /usr/local/opt/openjdk ]] && export PATH="/usr/local/opt/openjdk/bin:$PATH"
+            ;& # fallthrough
+        arm64)
+            [[ -s /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+            # brew --prefix openjdk
+            [[ -d /opt/homebrew/opt/openjdk ]] && export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+            ;;
+    esac
+fi
+
+export PATH="$PATH:$HOME/.local/bin"
+export MANPATH="$MANPATH:$HOME/.local/share/man"
+
+if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
+    # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+    source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+    # I think this is done automatically:
+    #export PATH="$PATH:$HOME/.rvm/bin"
+fi
