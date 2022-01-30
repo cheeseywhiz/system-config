@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/bundle')
 
-Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'w0rp/ale'
 Plug 'kien/ctrlp.vim'
 Plug 'mhinz/vim-signify'
