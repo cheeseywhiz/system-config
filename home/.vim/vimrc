@@ -10,6 +10,7 @@ Plug 'mhinz/vim-signify'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'Yggdroot/indentLine'
+Plug 'ARM9/arm-syntax-vim'
 
 call plug#end()
 
@@ -34,6 +35,9 @@ set foldmethod=syntax
 set foldcolumn=1
 set foldlevelstart=99
 set fillchars=fold:\ 
+"set mouse=a
+"nnoremap <Up> <ScrollWheelUp>
+"nnoremap <Down> <ScrollWheelDown>
 highlight! link FoldColumn Comment
 highlight! link Folded Comment
 highlight! link ColorColumn VertSplit
@@ -88,5 +92,5 @@ nnoremap <leader>s :enew<CR>:setlocal buftype=nofile bufhidden=hide noswapfile<C
 " new tab
 nnoremap <leader>tn :tabnew<CR>
 
-let g:asmsyntax = 'nasm'
+" let g:asmsyntax = 'nasm'
 let g:ale_nasm_nasm_options = '-f elf64'

@@ -1,0 +1,97 @@
+add_newline = false
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$time\
+$shlvl\
+$singularity\
+$kubernetes\
+$vcsh\
+$hg_branch\
+$docker_context\
+$package\
+$cmake\
+$cobol\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$kotlin\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$swift\
+$terraform\
+$vlang\
+$vagrant\
+$zig\
+$nix_shell\
+$conda\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+$env_var\
+$crystal\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$status\
+$shell\
+$character\
+"""
+
+[username]
+show_always = true
+format = "[$user]($style)@"
+
+[hostname]
+ssh_only = false
+
+[time]
+disabled = false
+use_12hr = true
+
+[status]
+disabled = false
+
+[cmd_duration]
+show_milliseconds = true
+
+[character]
+success_symbol = "[\\$](bold green)"
+error_symbol = "[\\$](bold red)"
+
+[ruby]
+# I only seem to set RUBY_VERSION, so take that out of this list
+detect_variables = ["RBENV_VERSION"]
+
+[python]
+python_binary = ["python3", "python", "python2"]

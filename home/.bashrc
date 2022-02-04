@@ -28,13 +28,11 @@ git-new () {
 	$EDITOR "$FILE"
 }
 
-source ~/.git-prompt.sh
-PS1='$(printf "%.*s" $? $?)\[\e[01;32m\]\u@\h: \[\e[00m\]$(date "+%r"): \[\e[01;34m\]$(git-pwd): \[\e[00m\]$(__git_ps1 "%s:")\n\$ \[\e[00m\]'
 export EDITOR=vim
 export PAGER=less
 export MANPAGER=less
 
-if [[ $(uname) == Darwin ]]; then
+if [[ "$(uname)" == "Darwin" ]]; then
     export LESS="-RSF"
 else
     export LESS="-RSFX"
@@ -48,12 +46,14 @@ alias ll="ls -l"
 alias la="ll -a"
 alias reset="tput reset"
 alias bell="echo -ne \"\x07\""
-alias ssh-umich="ssh -X -L 5951:localhost:5951 umich"
+#alias ssh-umich="ssh -X -L 5951:localhost:5951 umich"
 alias t-sp="tmux split-window -l \"25%\""
-alias t-vs="tmux split-window -h -l \"33%\""
+alias t-vs="tmux split-window -h -l \"37%\""
 
-if [[ $(uname) == Darwin ]]; then
+if [[ "$(uname)" == "Darwin" ]]; then
     alias code="open -a \"Visual Studio Code\""
+    alias chrome="open -a \"Google Chrome\""
+    alias qemu="qemu-system-aarch64"
 fi
 
 ## set PATH
@@ -66,7 +66,7 @@ if [[ -d "$XDG_CONFIG_HOME/nvm" ]]; then
     source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
-if [[ $(uname) == Darwin ]]; then
+if [[ "$(uname)" == "Darwin" ]]; then
     case $(uname -m) in
         x86_64)
             [[ -s /usr/local/bin/brew ]] && eval "$(/usr/local/bin/brew shellenv)"
@@ -89,4 +89,11 @@ if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
     source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
     # I think this is done automatically:
     #export PATH="$PATH:$HOME/.rvm/bin"
+fi
+
+if command -v starship > /dev/null; then
+    eval "$(starship init bash)"
+else
+    source ~/.git-prompt.sh
+    PS1='$(printf "%.*s" $? $?)\[\e[01;32m\]\u@\h: \[\e[00m\]$(date "+%r"): \[\e[01;34m\]$(git-pwd): \[\e[00m\]$(__git_ps1 "%s:")\n\$ \[\e[00m\]'
 fi
