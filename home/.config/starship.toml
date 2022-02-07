@@ -2,13 +2,13 @@ add_newline = false
 format = """
 $username\
 $hostname\
+$time\
 $directory\
 $git_branch\
 $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
-$time\
 $shlvl\
 $singularity\
 $kubernetes\
@@ -74,6 +74,10 @@ format = "[$user]($style)@"
 
 [hostname]
 ssh_only = false
+format = "[$hostname]($style) "
+
+[directory]
+format = "in [$path]($style)[$read_only]($read_only_style) "
 
 [time]
 disabled = false

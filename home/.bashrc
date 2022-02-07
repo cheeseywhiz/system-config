@@ -91,7 +91,7 @@ if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
     #export PATH="$PATH:$HOME/.rvm/bin"
 fi
 
-if command -v starship > /dev/null; then
+if command -v starship >& /dev/null; then
     eval "$(starship init bash)"
 else
     source ~/.git-prompt.sh
