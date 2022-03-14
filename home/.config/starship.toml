@@ -70,18 +70,16 @@ $character\
 
 [username]
 show_always = true
-format = "[$user]($style)@"
+format = "[$user]($style)"
 
 [hostname]
 ssh_only = false
-format = "[$hostname]($style) "
-
-[directory]
-format = "in [$path]($style)[$read_only]($read_only_style) "
+format = "@[$hostname]($style): "
 
 [time]
 disabled = false
 use_12hr = true
+format = "[$time]($style): "
 
 [status]
 disabled = false
@@ -99,3 +97,6 @@ detect_variables = ["RBENV_VERSION"]
 
 [python]
 python_binary = ["python3", "python", "python2"]
+
+[gcloud]
+disabled = true
