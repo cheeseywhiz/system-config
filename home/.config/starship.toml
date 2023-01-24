@@ -1,5 +1,6 @@
 add_newline = false
 format = """
+$status\
 $username\
 $hostname\
 $time\
@@ -9,6 +10,7 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
+$localip\
 $shlvl\
 $singularity\
 $kubernetes\
@@ -16,8 +18,10 @@ $vcsh\
 $hg_branch\
 $docker_context\
 $package\
+$c\
 $cmake\
 $cobol\
+$daml\
 $dart\
 $deno\
 $dotnet\
@@ -25,6 +29,9 @@ $elixir\
 $elm\
 $erlang\
 $golang\
+$guix_shell\
+$haskell\
+$haxe\
 $helm\
 $java\
 $julia\
@@ -33,11 +40,13 @@ $lua\
 $nim\
 $nodejs\
 $ocaml\
+$opa\
 $perl\
 $php\
 $pulumi\
 $purescript\
 $python\
+$raku\
 $rlang\
 $red\
 $ruby\
@@ -48,8 +57,11 @@ $terraform\
 $vlang\
 $vagrant\
 $zig\
+$buf\
 $nix_shell\
 $conda\
+$meson\
+$spack\
 $memory_usage\
 $aws\
 $gcloud\
@@ -63,7 +75,8 @@ $cmd_duration\
 $line_break\
 $jobs\
 $battery\
-$status\
+$os\
+$container\
 $shell\
 $character\
 """
@@ -83,6 +96,8 @@ format = "[$time]($style): "
 
 [status]
 disabled = false
+format = "[$symbol $status\n]($style)"
+map_symbol = true
 
 [cmd_duration]
 show_milliseconds = true
@@ -90,6 +105,12 @@ show_milliseconds = true
 [character]
 success_symbol = "[\\$](bold green)"
 error_symbol = "[\\$](bold red)"
+
+[c]
+detect_extensions = ['c', 'h', 'cpp', 'hpp']
+
+[aws]
+disabled = true
 
 [ruby]
 # I only seem to set RUBY_VERSION, so take that out of this list

@@ -26,7 +26,7 @@ fi
 
 chown -Rv "$(repo-owner)" "$CONFIG_FILE"
 
-PATH_IN_REPO="$(python -c "
+PATH_IN_REPO="$(python3 -c "
 config_file = \"${CONFIG_FILE}\"
 home = \"${HOME}\"
 

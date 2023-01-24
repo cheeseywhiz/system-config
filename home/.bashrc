@@ -33,9 +33,9 @@ export PAGER=less
 export MANPAGER=less
 
 if [[ "$(uname)" == "Darwin" ]]; then
-    export LESS="-RSF"
+    export LESS="-RS"
 else
-    export LESS="-RSFX"
+    export LESS="-RSX"
 fi
 
 alias grep="grep --color=auto"
@@ -83,6 +83,9 @@ fi
 
 export PATH="$PATH:$HOME/.local/bin"
 export MANPATH="$MANPATH:$HOME/.local/share/man"
+# set indefinite size history
+export HISTSIZE=-1
+export HISTTIMEFORMAT="%F %T "
 
 if [[ -s "$HOME/.rvm/scripts/rvm" ]]; then
     # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.

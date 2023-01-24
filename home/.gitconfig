@@ -1,5 +1,5 @@
 [user]
-	email = sctodd@umich.edu
+	email = cheesy.mac.dott@gmail.com
 	name = Spencer Todd
 [core]
 	pager = vim -R -c :AnsiEsc -c \":set nowrap\" -
@@ -21,7 +21,12 @@
 	verbose = true
 [diff]
 	tool = vimdiff
-[difftool]
-	prompt = false
 [pull]
 	rebase = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[push]
+	autoSetupRemote = true
