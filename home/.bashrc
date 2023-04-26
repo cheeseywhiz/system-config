@@ -46,6 +46,8 @@ alias ll="ls -l"
 alias la="ll -a"
 alias reset="tput reset"
 alias bell="echo -ne \"\x07\""
+alias ip-local="ipconfig getifaddr en0"
+alias brew-uu="brew update && brew upgrade"
 #alias ssh-umich="ssh -X -L 5951:localhost:5951 umich"
 alias t-sp="tmux split-window -l \"25%\""
 alias t-vs="tmux split-window -h -l \"37%\""
@@ -54,6 +56,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     alias code="open -a \"Visual Studio Code\""
     alias chrome="open -a \"Google Chrome\""
     alias qemu="qemu-system-aarch64"
+    alias clipboard="pbcopy"
 fi
 
 ## set PATH
@@ -76,7 +79,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
         arm64)
             [[ -s /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
             # brew --prefix openjdk
-            [[ -d /opt/homebrew/opt/openjdk ]] && export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+            [[ -d /opt/homebrew/opt/openjdk ]] && export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
             ;;
     esac
 fi

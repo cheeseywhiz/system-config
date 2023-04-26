@@ -1,5 +1,7 @@
 add_newline = false
+# start with bell character
 format = """
+\u0007\
 $status\
 $username\
 $hostname\

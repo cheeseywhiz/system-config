@@ -41,6 +41,7 @@ set mouse=
 highlight! link FoldColumn Comment
 highlight! link Folded Comment
 highlight! link ColorColumn VertSplit
+hi ColorColumn ctermbg=lightgrey guibg=lightgrey
 
 command Q q
 command W w

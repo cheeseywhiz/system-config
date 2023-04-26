@@ -13,6 +13,7 @@
 	g = graph
 	l = log
 	dt = difftool
+	b = blame -C --abbrev=1
 [grep]
 	linenumber = true
 [credential]
